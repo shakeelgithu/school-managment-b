@@ -1,0 +1,15 @@
+{
+  "routes": {
+    "/": {},
+    "/addstudent": {},
+    "/auth": {},
+    "/auth/forgot-password": {},
+    "/auth/login": {},
+    "/auth/otp": {},
+    "/auth/reset-password": {},
+    "/auth/signup": {},
+    "/class-promotion": {},
+    "/dashboard": {},
+    "/student-dashboard": {}
+  }
+}
