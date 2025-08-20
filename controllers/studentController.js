@@ -3,11 +3,38 @@ const Student = require("../models/Student");
 // Create Student
 exports.createStudent = async (req, res) => {
   try {
-    const student = new Student(req.body);
-    await student.save();
-    res.status(201).json({ message: "Student added successfully", student });
+    const {
+      name,
+      fatherName,
+      admissionNumber,
+      classAdmittedIn,
+      dateOfAdmission,
+      currentClass,
+      dateOfBirth,
+      address,
+    } = req.body;
+
+    const studentData = {
+      name,
+      fatherName,
+      admissionNumber,
+      classAdmittedIn,
+      dateOfAdmission: dateOfAdmission ? new Date(dateOfAdmission) : null,
+      currentClass,
+      dateOfBirth: dateOfBirth ? new Date(dateOfBirth) : null,
+      address,
+    };
+
+    if (req.file) {
+      studentData.photo = req.file.filename; // ✅ saved by multer
+    }
+
+    const student = await Student.create(studentData);
+
+    res.status(201).json({ message: "Student created successfully", student });
   } catch (error) {
-    res.status(400).json({ message: "Failed to add student", error: error.message });
+    console.error("Error in createStudent:", error);
+    res.status(500).json({ message: error.message || "Server error" });
   }
 };
 
@@ -35,7 +62,11 @@ exports.getStudentById = async (req, res) => {
 // Update Student
 exports.updateStudent = async (req, res) => {
   try {
-    const updated = await Student.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    const updated = await Student.findByIdAndUpdate(
+      req.params.id,
+      req.body,
+      { new: true }
+    );
     if (!updated) return res.status(404).json({ message: "Student not found" });
     res.json({ message: "Student updated", updated });
   } catch (error) {
