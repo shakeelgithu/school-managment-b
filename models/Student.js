@@ -10,7 +10,7 @@ const studentSchema = new mongoose.Schema({
     required: true,
   },
   photo: {
-    type: String, // yeh image URL hoga (cloud ya local path)
+    type: String,
     required: false,
   },
   admissionNumber: {

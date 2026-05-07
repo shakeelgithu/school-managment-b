@@ -1,8 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const auth = require('../middleware/uthMiddleware');
+const auth = require('../middleware/authMiddleware');
 
-// Only accessible if token is valid
 router.get('/dashboard', auth, (req, res) => {
   res.json({ msg: "Welcome to the dashboard!" });
 });

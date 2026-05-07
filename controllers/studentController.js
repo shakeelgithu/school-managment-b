@@ -1,6 +1,5 @@
 const Student = require("../models/Student");
 
-// Create Student
 exports.createStudent = async (req, res) => {
   try {
     const {
@@ -26,7 +25,7 @@ exports.createStudent = async (req, res) => {
     };
 
     if (req.file) {
-      studentData.photo = req.file.filename; // ✅ saved by multer
+      studentData.photo = req.file.filename; 
     }
 
     const student = await Student.create(studentData);
@@ -38,7 +37,6 @@ exports.createStudent = async (req, res) => {
   }
 };
 
-// Get All Students
 exports.getStudents = async (req, res) => {
   try {
     const students = await Student.find();
@@ -48,7 +46,6 @@ exports.getStudents = async (req, res) => {
   }
 };
 
-// Get Single Student by ID
 exports.getStudentById = async (req, res) => {
   try {
     const student = await Student.findById(req.params.id);
@@ -59,7 +56,6 @@ exports.getStudentById = async (req, res) => {
   }
 };
 
-// Update Student
 exports.updateStudent = async (req, res) => {
   try {
     const updated = await Student.findByIdAndUpdate(
@@ -74,7 +70,6 @@ exports.updateStudent = async (req, res) => {
   }
 };
 
-// Delete Student
 exports.deleteStudent = async (req, res) => {
   try {
     const deleted = await Student.findByIdAndDelete(req.params.id);
