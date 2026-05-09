@@ -1,1 +1,2 @@
-require('./Api/server');
+const app = require('./Api/server');
+module.exports = app;
