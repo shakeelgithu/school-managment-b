@@ -6,12 +6,17 @@ const path = require("path");
 const fs = require("fs");
 const connectDB = require("../config/db");
 const dotenv = require("dotenv");
+
 const authRoutes = require("../routes/authRoutes");
 const studentRoutes = require("../routes/studentRoutes");
+const feeRoutes = require("../routes/feeRoutes");
 const protectedRoutes = require("../routes/protectedRoute");
 const feeRoutes = require('../routes/feeRoutes');
 const financeRoutes = require('../routes/financeRoutes');
 
+dotenv.config();
+
+// Connect Database
 connectDB();
 
 const app = express();
@@ -21,6 +26,8 @@ if (!fs.existsSync(uploadsDir)) {
   fs.mkdirSync(uploadsDir, { recursive: true });
   console.log('Uploads folder created');
 }
+// Middleware
+app.use(express.json());
 
 app.use(
   cors({
@@ -29,12 +36,13 @@ app.use(
       "https://school-management-frontend.vercel.app"
     ],
     credentials: true,
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
 
-app.use(express.json());
+// Test Route
+app.get("/", (req, res) => {
+  res.send("School Management API Running...");
+});
 
 app.use("/uploads", express.static(uploadsDir));
 
